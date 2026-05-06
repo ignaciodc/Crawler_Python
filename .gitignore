@@ -1,0 +1,27 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configuración y logs
+*.log
+config.ini
+*.conf
+
+# Archivos de salida de datos (CSV y JSON generados)
+*.csv
+*.json
+
+# Dependencias
+# Se recomienda mantener requirements.txt fuera del ignore, pero no los entornos locales
+node_modules/
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp

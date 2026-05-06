@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Usuario
+
+package "Sistema Crawler en Python" {
+    usecase "Ejecutar rastreo web" as UC_Principal
+    usecase "Monitorear progreso" as UC_Progreso
+
+    usecase "Leer configuración" as UC_Config
+    usecase "Exportar a CSV/JSON" as UC_Exportar
+
+    usecase "Filtrar por palabra clave" as UC_Filtro
+    usecase "Registrar error en log" as UC_Error
+}
+
+' Interacciones directas del usuario
+Usuario --> UC_Principal
+Usuario --> UC_Progreso
+
+' Relaciones obligatorias
+UC_Principal ..> UC_Config : <<include>>
+UC_Principal ..> UC_Exportar : <<include>>
+
+' Relaciones opcionales
+UC_Filtro ..> UC_Principal : <<extend>>
+UC_Error ..> UC_Principal : <<extend>>
+
+@enduml

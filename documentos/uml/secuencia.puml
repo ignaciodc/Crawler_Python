@@ -1,0 +1,55 @@
+@startuml
+skinparam maxMessageSize 150
+
+actor Usuario
+participant "main.py" as main
+participant "config_manager.py" as config
+participant "crawler.py" as crawler
+participant "page_fetcher.py" as fetcher
+participant "link_extractor.py" as extractor
+participant "result_exporter.py" as exporter
+
+Usuario -> main : Ejecuta el programa
+activate main
+
+main -> config : Solicita leer configuración
+activate config
+config --> main : Devuelve parámetros (URL, límites, keywords)
+deactivate config
+
+main -> crawler : Inicia proceso con los parámetros
+activate crawler
+
+loop Mientras haya URLs en la cola y no se alcance profundidad/límite de páginas
+    crawler -> fetcher : Pide descargar web (URL actual)
+    activate fetcher
+
+    alt Si hay error (ej. error de conexión o parseo)
+        fetcher --> crawler : Devuelve Error (crawler registra en logger)
+    else Si hay éxito en descarga
+        fetcher --> crawler : Devuelve documento HTML
+        deactivate fetcher
+
+        crawler -> extractor : Pasa el HTML para buscar enlaces
+        activate extractor
+        extractor --> crawler : Devuelve lista de enlaces válidos (<a> href)
+        deactivate extractor
+
+        crawler -> crawler : Filtra duplicados y añade nuevos enlaces a la cola
+    end
+
+    crawler --> Usuario : Muestra salida informativa en consola (progreso, errores)
+end
+
+crawler -> exporter : Envía lista final de datos recopilados
+activate exporter
+exporter --> crawler : Confirma guardado en archivo (CSV o JSON)
+deactivate exporter
+
+crawler --> main : Proceso finalizado
+deactivate crawler
+
+main --> Usuario : Muestra tiempo total de ejecución
+deactivate main
+
+@enduml

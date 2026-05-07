@@ -16,15 +16,21 @@ def configurar_logger():
         salida_terminal.setLevel(logging.INFO)
         formato_terminal = logging.Formatter('%(message)s')  # Formato limpio
         salida_terminal.setFormatter(formato_terminal)
+        logger.addHandler(salida_terminal)
 
         # SALIDA 2: Archivo .log (Para capturar y registrar errores)
-        salida_archivo = logging.FileHandler("errores.log", mode='a', encoding='utf-8')
-        salida_archivo.setLevel(logging.ERROR)
-        formato_archivo = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')  # Formato técnico: incluye la fecha y hora exacta del fallo
-        salida_archivo.setFormatter(formato_archivo)
+        try:
+            salida_archivo = logging.FileHandler("errores.log", mode='a', encoding='utf-8')
+            salida_archivo.setLevel(logging.ERROR)
+            formato_archivo = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+            salida_archivo.setFormatter(formato_archivo)
+            logger.addHandler(salida_archivo)
 
-        # Añadimos las dos salidas a nuestro logger
-        logger.addHandler(salida_terminal)
-        logger.addHandler(salida_archivo)
+        except PermissionError:
+            # Error específico si no tenemos derechos de escritura
+            raise PermissionError("No hay permisos para escribir el archivo 'errores.log' en esta carpeta.")
+        except OSError as e:
+            # Error genérico para problemas de disco (espacio lleno, etc.)
+            raise OSError(f"Fallo del sistema al intentar crear el archivo de logs: {e}")
 
     return logger

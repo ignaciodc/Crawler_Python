@@ -3,13 +3,13 @@ import sys
 
 
 def configurar_logger():
-    # Creamos el objeto logger principal
+    # Crea el objeto logger principal
     logger = logging.getLogger("CrawlerLogger")
 
-    # Le decimos que procese desde INFO hacia arriba (INFO, WARNING, ERROR, CRITICAL)
+    # Para que procese desde INFO hacia arriba (INFO, WARNING, ERROR, CRITICAL)
     logger.setLevel(logging.INFO)
 
-    # Evitamos que se dupliquen los mensajes si la función se llama varias veces
+    # Evita que se dupliquen los mensajes si la función se llama varias veces
     if not logger.handlers:
         # SALIDA 1: La terminal (Para el progreso)
         salida_terminal = logging.StreamHandler(sys.stdout)
@@ -27,7 +27,7 @@ def configurar_logger():
             logger.addHandler(salida_archivo)
 
         except PermissionError:
-            # Error específico si no tenemos derechos de escritura
+            # Error específico si no tiene derechos de escritura
             raise PermissionError("No hay permisos para escribir el archivo 'errores.log' en esta carpeta.")
         except OSError as e:
             # Error genérico para problemas de disco (espacio lleno, etc.)

@@ -1,22 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
-import logging
+from crawler.logger_util import configurar_logger
 
-logging.basicConfig(level=logging.ERROR, format='%(levelname)s: %(message)s')
+logger = configurar_logger()
 
-# Descarga la página web. Captura los errores. Devuelve el HTML.
 def descargar_pagina(url):
     try:
         respuesta = requests.get(url)
         respuesta.raise_for_status()
         return respuesta.text
     except requests.RequestException as e:
-        logging.error(f"Error al intentar descargar la URL {url}. Detalle: {e}")
+        logger.error(f"Error al descargar la URL {url}. Detalle: {e}")
         return None
 
-# Prepara el documento HTML. Lo convierte en objeto. Devuelve sopa.
 def parsear_html(html):
     if html is None:
         return None
-    soup = BeautifulSoup(html, 'html.parser')
-    return soup
+    try:
+        soup = BeautifulSoup(html, 'html.parser')
+        return soup
+    except Exception as e:
+        logger.error(f"Error al parsear el HTML. Detalle: {e}")
+        return None

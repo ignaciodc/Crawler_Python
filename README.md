@@ -62,8 +62,11 @@ El módulo result_exporter.py unifica la generación de resultados en una sola f
 
 Se han desarrollado dos diagramas fundamentales para entender el sistema:
 
-- Diagrama de Casos de Uso: Muestra las funciones que el usuario puede realizar y las dependencias internas (<<include>> y <<extend>>).
+- Diagrama de Casos de Uso: Muestra las funciones que el usuario puede realizar y las dependencias internas (include y extend).
+![Diagrama de Casos de Uso](documentos/imagenes/casos_de_uso.png)
 - Diagrama de Secuencia: Describe cómo fluyen los datos entre los archivos .py desde que se arranca el programa hasta que se genera el archivo de resultados.
+![Diagrama de Secuencia](documentos/imagenes/secuencia.png)
+
 
 ## Instalación y Uso
 

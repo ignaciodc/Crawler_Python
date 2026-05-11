@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-def link_extractor (soup):
-=======
 from urllib.parse import urljoin, urlparse
 
 
@@ -9,7 +6,6 @@ def extraer_enlaces(soup, url_base):
     Extrae todos los enlaces válidos de un objeto BeautifulSoup.
     Convierte enlaces relativos en absolutos y restringe al mismo dominio.
     """
->>>>>>> d8a937e84756bbb21c5729285c52b94e0ede6ca5
     enlaces_validos = []
 
     # Usamos un 'set' (conjunto) para llevar el registro de duplicados. 

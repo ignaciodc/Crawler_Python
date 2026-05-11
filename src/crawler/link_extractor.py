@@ -1,4 +1,4 @@
-def extraer_enlaces (soup):
+def link_extractor (soup):
     enlaces_validos = []
     if soup is None:
         return enlaces_validos

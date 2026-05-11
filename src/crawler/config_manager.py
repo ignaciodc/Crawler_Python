@@ -9,7 +9,7 @@ def cargar_configuracion(ruta_archivo="config.ini"):
     lector = configparser.ConfigParser()
 
     if not lector.read(ruta_archivo):
-        raise FileNotFoundError(f"Error crítico: No se encontró el archivo '{ruta_archivo}'.")
+        raise FileNotFoundError(f"No se encontró el archivo '{ruta_archivo}'.")
 
     try:
         url = lector.get('AJUSTES', 'url_inicial')

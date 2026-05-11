@@ -1,4 +1,28 @@
 import configparser
+<<<<<<< HEAD
+
+def leer_configuracion(ruta_archivo):
+    config = configparser.ConfigParser()
+    config.read(ruta_archivo)
+
+    url = config.get('Ajustes', 'url_inicial', fallback='')
+    salida = config.get('Ajustes', 'salida', fallback='resultados.csv')
+
+    profundidad = config.getint('Ajustes', 'profundidad_maxima', fallback=3)
+    if profundidad < 3:
+        profundidad = 3
+
+    paginas = config.getint('Ajustes', 'paginas_maxima', fallback=50)
+    if paginas < 50:
+        paginas = 50
+
+    return {
+        'url_inicial': url,
+        'profundidad_maxima': profundidad,
+        'max_paginas': paginas,
+        'archivo_salida': salida
+    }
+=======
 from crawler.logger_util import configurar_logger  # 1. Importamos el logger
 
 logger = configurar_logger()
@@ -46,3 +70,4 @@ def cargar_configuracion(ruta_archivo="config.ini"):
         raise ValueError("El archivo config.ini está mal formateado: Falta la sección [AJUSTES].")
     except configparser.NoOptionError as e:
         raise ValueError(f"Falta un parámetro obligatorio en la configuración: {e.option}")
+>>>>>>> d8a937e84756bbb21c5729285c52b94e0ede6ca5

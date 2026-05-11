@@ -36,11 +36,9 @@ def parsear_html(html):
 
     # Creamos el objeto para manipular documentos HTML.
     try:
-        # Usamos el motor recomendado en los apuntes.
         sopa = BeautifulSoup(html, 'html.parser')
         return sopa
 
     except Exception as e:
-        # También es buena idea capturar errores de parseo por si el HTML está muy roto
         logger.error(f"Error al parsear el documento HTML. Detalle: {e}")
         return None
